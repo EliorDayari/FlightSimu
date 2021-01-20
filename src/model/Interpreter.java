@@ -29,7 +29,7 @@ public class Interpreter {
 
         };
         lexer=new CompLexer(start);
-        parser=new AutoPilotParser(new CompParser(lexer.lexicalCheck()));
+        parser=new AutoPilotParser(new CompParser(lexer.lexer()));
         parser.parse();
         AutoPilotParser.stop=false;
         parser.execute();
@@ -43,7 +43,7 @@ public class Interpreter {
 
     public void interpet(String[] list){
        lexer=new CompLexer(list);
-       parser.add(lexer.lexicalCheck());
+       parser.add(lexer.lexer());
        parser.parse();
    }
    public void execute()

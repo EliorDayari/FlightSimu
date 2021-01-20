@@ -6,16 +6,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-import commands.Command;
 import expressions.ShuntingYard;
 import interpreter.CompParser;
-import server_side.ClientHandler;
-import server_side.MySerialServer;
-import server_side.Server;
+import server.ClientHandler;
+import server.MySerialServer;
+import server.Server;
 
 public class OpenDataServer implements Command {
 	public static volatile boolean stop=false;
-	public static Object wait=new Object();
+	public static Object lock =new Object();
 	Server s;
 	@Override
 	public void executeCommand(String[] array) {
@@ -26,8 +25,8 @@ public class OpenDataServer implements Command {
 			@Override
 			public void handleClient(InputStream in, OutputStream out) {
 				BufferedReader Bin=new BufferedReader(new InputStreamReader(in));
-				synchronized (OpenDataServer.wait) {
-					OpenDataServer.wait.notifyAll();
+				synchronized (OpenDataServer.lock) {
+					OpenDataServer.lock.notifyAll();
 				}
 				
 				while (!stop) {

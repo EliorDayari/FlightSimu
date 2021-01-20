@@ -5,19 +5,19 @@ import java.util.Scanner;
 
 public class SimulatorLexer<V> implements Lexer{
 
-	private Scanner scan;
+	private Scanner scanner;
 	private ArrayList<String[]> lines = new ArrayList<>();
 
 	public SimulatorLexer(String v) {
-		scan = new Scanner(v);
+		scanner = new Scanner(v);
 	}
 	public SimulatorLexer(V v) {
-		scan = new Scanner((Readable) v);
+		scanner = new Scanner((Readable) v);
 		
 	}
-	public ArrayList<String[]> lexicalCheck() {
-		while (scan.hasNextLine()) {
-			lines.add(scan.nextLine().split(" "));
+	public ArrayList<String[]> lexer() {
+		while (scanner.hasNextLine()) {
+			lines.add(scanner.nextLine().split(" "));
 		}
 		return lines;
 

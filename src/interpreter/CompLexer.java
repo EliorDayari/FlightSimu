@@ -26,7 +26,7 @@ public class CompLexer<V> implements Lexer {
         scan = new Scanner((Readable) v);
 
     }
-    public ArrayList<String[]> lexicalCheck() {
+    public ArrayList<String[]> lexer() {
         if(arr!=null)
         {
             for (String s:arr) {

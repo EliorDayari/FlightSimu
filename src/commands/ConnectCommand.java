@@ -27,8 +27,8 @@ public class ConnectCommand implements Command ,Observer{
 			try {
 				Socket socket= null;
 				try {
-					synchronized (OpenDataServer.wait) {
-						OpenDataServer.wait.wait();
+					synchronized (OpenDataServer.lock) {
+						OpenDataServer.lock.wait();
 					}
 					Thread.sleep(10000);
 					socket = new Socket(array[1], Integer.parseInt(array[2]));
