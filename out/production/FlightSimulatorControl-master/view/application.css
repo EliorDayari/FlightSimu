@@ -6,5 +6,35 @@
  -fx-background-size: 100% 100%;
 }
 .rad{
--fx-border-width: 100px;
+
+}
+#calc{
+
+}
+.slider .axis .axis-tick-mark {
+    -fx-fill: null;
+    -fx-stroke: red;
+}
+
+.slid {
+
+
+        -fx-control-inner-background: #000000!important;
+         -fx-font-size:13px;
+
+
+        }
+
+
+#rudder .thumb{
+
+   -fx-background-color: #ff0000!important;
+}
+#throttle .thumb{
+
+   -fx-background-color: #ff0000!important;
+}
+#TextArea{
+-fx-font-family: Consolas; -fx-highlight-fill: #00ff00; -fx-highlight-text-fill: #0000ff; -fx-text-fill: #ff0000; -fx-background-color:#000000;
+
 }
