@@ -6,12 +6,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-import commands.Command;
 import expressions.ShuntingYard;
 import interpreter.CompParser;
-import server_side.ClientHandler;
-import server_side.MySerialServer;
-import server_side.Server;
+import server.ClientHandler;
+import server.MySerialServer;
+import server.Server;
 
 public class OpenDataServer implements Command {
 	public static volatile boolean stop=false;

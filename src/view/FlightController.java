@@ -51,7 +51,7 @@ public class FlightController implements Initializable, Observer {
     @FXML
     private RadioButton auto;
     @FXML
-    private MapDisplayer map;
+    private MapDisplayerController map;
     @FXML
     private RadioButton manual;
     @FXML
