@@ -22,10 +22,10 @@ public class CompParser implements Parser {
         this.comds=new ArrayList<>();
         this.lines = lines;
         symbolTable=new HashMap<>();
-        commandFactory.insertProduct("openDataServer",OpenDataServer.class);
+        commandFactory.insertProduct("openDataServer", DataReaderServer.class);
         commandFactory.insertProduct("connect",ConnectCommand.class);
         commandFactory.insertProduct("while",LoopCommand.class);
-        commandFactory.insertProduct("var",DefineVarCommand.class);
+        commandFactory.insertProduct("var", DeclareVarCommand.class);
         commandFactory.insertProduct("return",ReturnCommand.class);
         commandFactory.insertProduct("=",AssignCommand.class);
         commandFactory.insertProduct("disconnect",DisconnectCommand.class);
@@ -34,10 +34,10 @@ public class CompParser implements Parser {
         commandFactory.insertProduct("predicate",PredicateCommand.class);
         commandFactory.insertProduct("autoroute",AutoRouteCommand.class);
         commandFactory.insertProduct("if",IfCommand.class);
-        commandTable.put("openDataServer", new CommandExpression(new OpenDataServer()));
+        commandTable.put("openDataServer", new CommandExpression(new DataReaderServer()));
         commandTable.put("connect",new CommandExpression(new ConnectCommand()));
         commandTable.put("while",new CommandExpression(new LoopCommand()));
-        commandTable.put("var",new CommandExpression(new DefineVarCommand()));
+        commandTable.put("var",new CommandExpression(new DeclareVarCommand()));
         commandTable.put("return",new CommandExpression(new ReturnCommand()));
         commandTable.put("=",new CommandExpression(new AssignCommand()));
         commandTable.put("disconnect",new CommandExpression(new DisconnectCommand()));
@@ -66,7 +66,7 @@ public class CompParser implements Parser {
         int i=0;
         ArrayList<CommandExpression> tmp=new ArrayList<>();
         CommandExpression cmdtmp=new CommandExpression((Command)commandFactory.getNewProduct("predicate"));
-        cmdtmp.setS(array.get(0));
+        cmdtmp.setTokens(array.get(0));
         tmp.add(cmdtmp);
         c.setCommands(tmp);
         c.getCommands().addAll(1,this.parseCommands(new ArrayList<>(array.subList(i+1,array.size()))));
@@ -79,19 +79,19 @@ public class CompParser implements Parser {
         ArrayList<CommandExpression> commands=new ArrayList<>();
         for (int i = 0; i < array.size(); i++) {
             CommandExpression e=new CommandExpression((Command)commandFactory.getNewProduct(array.get(i)[0]));
-            if(e.getC()!=null) {
+            if(e.getCommand()!=null) {
                 if (array.get(i)[0].equals("while") ||array.get(i)[0].equals("if") ) {
                     int index = i;
                     i+=findCloser(new ArrayList<>(array.subList(i+1,array.size())))+1;
-                    e.setC(this.parseCondition(new ArrayList<>(array.subList(index, i))));
+                    e.setCommand(this.parseCondition(new ArrayList<>(array.subList(index, i))));
                 }
-                e.setS(array.get(i));
+                e.setTokens(array.get(i));
             }
 
             else {
                 
                 e=new CommandExpression((Command)commandFactory.getNewProduct(array.get(i)[1]));
-                e.setS(array.get(i));
+                e.setTokens(array.get(i));
             }
             commands.add(e);
         }

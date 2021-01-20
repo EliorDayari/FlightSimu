@@ -4,7 +4,7 @@ import model.Model;
 
 public class AutoRouteCommand implements Command {
     @Override
-    public void executeCommand(String[] array) {
+    public void execute(String[] array) {
         Model.turn=false;
     }
 }

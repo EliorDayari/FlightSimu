@@ -4,7 +4,7 @@ import interpreter.CompParser;
 
 public class PrintCommand implements Command {
     @Override
-    public void executeCommand(String[] array) {
+    public void execute(String[] array) {
        for (int i=1;i<array.length;i++)
        {
            if(CompParser.symbolTable.containsKey(array[i]))

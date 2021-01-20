@@ -1,48 +1,50 @@
+
+
 package Algorithms;
 
-import server.CommonSearcher;
-
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.HashSet;
+import server.CommonSearcher;
 
-public class BFS<Solution> extends CommonSearcher<Solution> {
-
+public class BFS<Solution> extends CommonSearcher<Solution>
+{
 	@Override
-	public Solution search(Searchable s)
-	{
-		openList.add(s.getInitialState());
-		HashSet<State> closedSet=new HashSet<State>();
-		while(openList.size()>0)
-		{
-			State n=popOpenList();// dequeue
+	public Solution search(final Searchable s) {
+		this.openList.add(s.getInitialState());
+		final HashSet<State> closedSet = new HashSet<State>();
+		while (this.openList.size() > 0) {
+			final State n = this.popOpenList();
 			closedSet.add(n);
-			ArrayList<State> successors=s.getAllPossibleStates(n); //however it is implemented
-			if(n.equals(s.getGoalState()))
-				return backTrace(n, s.getInitialState());
-				// private method, back traces through the parents
-			for(State state : successors){
-				if(!closedSet.contains(state) && ! openList.contains(state)){
+			final ArrayList<State> successors = s.getAllPossibleStates(n);
+			if (n.equals(s.getGoalState())) {
+				return this.backTrace(n, s.getInitialState());
+			}
+			for (final State state : successors) {
+				if (!closedSet.contains(state) && !this.openList.contains(state)) {
 					state.setCameFrom(n);
-					openList.add(state);
+					this.openList.add(state);
 				}
-				else if(n.getCost()+(state.getCost()-state.getCameFrom().getCost())<state.getCost()) 
-					 	if(openList.contains(state))
-					 		state.setCameFrom(n);
-						else  {
-							state.setCameFrom(n);
-							closedSet.remove(state);
-							openList.add(state);
+				else {
+					if (n.getCost() + (state.getCost() - state.getCameFrom().getCost()) >= state.getCost()) {
+						continue;
 					}
+					if (this.openList.contains(state)) {
+						state.setCameFrom(n);
+					}
+					else {
+						state.setCameFrom(n);
+						closedSet.remove(state);
+						this.openList.add(state);
+					}
+				}
 			}
 		}
-		return backTrace(s.getGoalState(), s.getInitialState());
+		return this.backTrace(s.getGoalState(), s.getInitialState());
 	}
-
-
 
 	@Override
 	public int getNumberOfNodesEvaluated() {
-		return evluateNodes;
+		return this.evluateNodes;
 	}
-	
 }

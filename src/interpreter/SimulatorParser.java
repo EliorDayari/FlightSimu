@@ -13,7 +13,7 @@ public class SimulatorParser implements Parser{
 	
 	public SimulatorParser(ArrayList<String[]> lines) {
 		this.lines = lines;
-		commandTable.put("openDataServer", new OpenDataServer());
+		commandTable.put("openDataServer", new DataReaderServer());
 		commandTable.put("connect", new ConnectCommand());
 		commandTable.put("while", new LoopCommand());
 	}
@@ -32,7 +32,7 @@ public class SimulatorParser implements Parser{
 					this.parseCondition(new ArrayList<String[]>(lines.subList(index, i)));
 				}
 
-				c.executeCommand(lines.get(i));
+				c.execute(lines.get(i));
 		}
 
 	}

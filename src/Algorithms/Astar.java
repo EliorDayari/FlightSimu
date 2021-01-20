@@ -1,57 +1,63 @@
+
+
 package Algorithms;
 
-import server.CommonSearcher;
-
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.HashSet;
+import server.CommonSearcher;
 
-public class Astar<Solution,heuristic> extends CommonSearcher<Solution> {
-	
-	
-	public interface Heuristic{
-		public double cost(State s, State goalState);
-	}
+public class Astar<Solution, heuristic> extends CommonSearcher<Solution>
+{
 	Heuristic h;
-	public Astar(Heuristic h) {
-		this.h=h;
+
+	public Astar(final Heuristic h) {
+		this.h = h;
 	}
+
 	@Override
-	public Solution search(Searchable s) {
-		double nCost,stateCost;
-		openList.add(s.getInitialState());
-		HashSet<State> closedSet=new HashSet<State>();
-		while(openList.size()>0)
-		{
-			State n=popOpenList();// dequeue
+	public Solution search(final Searchable s) {
+		this.openList.add(s.getInitialState());
+		final HashSet<State> closedSet = new HashSet<State>();
+		while (this.openList.size() > 0) {
+			final State n = this.popOpenList();
 			closedSet.add(n);
-			ArrayList<State> successors=s.getAllPossibleStates(n); //however it is implemented
-			n.setCost(n.getCost()+h.cost(n,s.getGoalState()));
-			if(n.equals(s.getGoalState()))
-				return backTrace(n, s.getInitialState());
-				// private method, back traces through the parents
-			for(State state : successors){
-				state.setCost(state.getCost()+h.cost(state,s.getGoalState()));
-				if(!closedSet.contains(state) && ! openList.contains(state)){
+			final ArrayList<State> successors = s.getAllPossibleStates(n);
+			n.setCost(n.getCost() + this.h.cost(n, s.getGoalState()));
+			if (n.equals(s.getGoalState())) {
+				return this.backTrace(n, s.getInitialState());
+			}
+			for (final State state : successors) {
+				state.setCost(state.getCost() + this.h.cost(state, s.getGoalState()));
+				if (!closedSet.contains(state) && !this.openList.contains(state)) {
 					state.setCameFrom(n);
-					openList.add(state);
+					this.openList.add(state);
 				}
-				else if(n.getCost()+(state.getCost()-state.getCameFrom().getCost())<state.getCost()) 
-					 	if(openList.contains(state))
-					 		state.setCameFrom(n);
-						else  {
-							state.setCameFrom(n);
-							closedSet.remove(state);
-							openList.add(state);
+				else {
+					if (n.getCost() + (state.getCost() - state.getCameFrom().getCost()) >= state.getCost()) {
+						continue;
 					}
+					if (this.openList.contains(state)) {
+						state.setCameFrom(n);
+					}
+					else {
+						state.setCameFrom(n);
+						closedSet.remove(state);
+						this.openList.add(state);
+					}
+				}
 			}
 		}
-		return backTrace(s.getGoalState(), s.getInitialState());
-	
+		return this.backTrace(s.getGoalState(), s.getInitialState());
 	}
 
 	@Override
 	public int getNumberOfNodesEvaluated() {
-		return evluateNodes;
+		return this.evluateNodes;
 	}
 
+	public interface Heuristic
+	{
+		double cost(final State p0, final State p1);
+	}
 }

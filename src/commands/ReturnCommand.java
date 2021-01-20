@@ -6,7 +6,7 @@ import interpreter.CompParser;
 public class ReturnCommand implements Command {
 
     @Override
-    public void executeCommand(String[] array) {
+    public void execute(String[] array) {
 
         StringBuilder exp = new StringBuilder();
         for (int i = 1; i < array.length; i++)

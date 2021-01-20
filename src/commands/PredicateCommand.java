@@ -15,7 +15,7 @@ public class PredicateCommand implements Command {
     }
 
     @Override
-    public void executeCommand(String[] array) {
+    public void execute(String[] array) {
         StringBuilder s=new StringBuilder();
         for(int i=1;i<array.length-1;i++){
             s.append(array[i]);

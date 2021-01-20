@@ -2,14 +2,14 @@ package commands;
 
 public class DisconnectCommand implements Command {
     @Override
-    public void executeCommand(String[] array) {
+    public void execute(String[] array) {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        OpenDataServer.stop=true;
+        DataReaderServer.stop=true;
         ConnectCommand.stop=true;
-        System.out.println("bye");
+        System.out.println("Bye");
     }
 }

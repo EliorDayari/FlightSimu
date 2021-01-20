@@ -21,14 +21,14 @@ public class ConnectCommand implements Command ,Observer{
 	}
 
 	@Override
-	public void executeCommand(String[] array) {
+	public void execute(String[] array) {
 		stop=false;
 		new Thread(()->{
 			try {
 				Socket socket= null;
 				try {
-					synchronized (OpenDataServer.lock) {
-						OpenDataServer.lock.wait();
+					synchronized (DataReaderServer.lock) {
+						DataReaderServer.lock.wait();
 					}
 					Thread.sleep(10000);
 					socket = new Socket(array[1], Integer.parseInt(array[2]));

@@ -29,7 +29,7 @@ public class MainWindowController extends Application {
         primaryStage.setOnCloseRequest(event -> {
             DisconnectCommand command=new DisconnectCommand();
             String[] disconnect={""};
-            command.executeCommand(disconnect);
+            command.execute(disconnect);
             AutoPilotParser.thread1.interrupt();
             model.stopAll();
             System.out.println("bye");

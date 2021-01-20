@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="runServer.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/runServer_jar</output-path>
+    <root id="archive" name="FlightSimulatorControl-master.jar">
+      <element id="module-output" name="FlightSimulatorControl-master" />
+    </root>
+  </artifact>
+</component>
