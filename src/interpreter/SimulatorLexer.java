@@ -1,26 +1,29 @@
+
 package interpreter;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SimulatorLexer<V> implements Lexer{
-
+public class SimulatorLexer<V> implements Lexer
+{
 	private Scanner scanner;
-	private ArrayList<String[]> lines = new ArrayList<>();
+	private ArrayList<String[]> lines;
 
-	public SimulatorLexer(String v) {
-		scanner = new Scanner(v);
+	public SimulatorLexer(final String v) {
+		this.lines = new ArrayList<String[]>();
+		this.scanner = new Scanner(v);
 	}
-	public SimulatorLexer(V v) {
-		scanner = new Scanner((Readable) v);
-		
+
+	public SimulatorLexer(final V v) {
+		this.lines = new ArrayList<String[]>();
+		this.scanner = new Scanner((Readable)v);
 	}
+
+	@Override
 	public ArrayList<String[]> lexer() {
-		while (scanner.hasNextLine()) {
-			lines.add(scanner.nextLine().split(" "));
+		while (this.scanner.hasNextLine()) {
+			this.lines.add(this.scanner.nextLine().split(" "));
 		}
-		return lines;
-
+		return this.lines;
 	}
-
 }

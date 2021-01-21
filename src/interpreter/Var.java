@@ -1,24 +1,22 @@
 package interpreter;
 
-import java.util.Observable;
 import java.util.Observer;
+import java.util.Observable;
 
-public class Var extends Observable implements Observer {
+public class Var extends Observable implements Observer
+{
 	double value;
 	String name;
 	String location;
 
 	@Override
-	public void update(Observable o, Object arg) {
-		Double d=new Double(0);
-		if(arg.getClass()==(d.getClass()))
-			if(this.value!=(double)arg) {
-				this.setV((double) arg);
-				this.setChanged();
-				this.notifyObservers(arg+"");
-			}
-
-
+	public void update(final Observable o, final Object arg) {
+		final Double d = new Double(0.0);
+		if (arg.getClass() == d.getClass() && this.value != (double)arg) {
+			this.setV((double)arg);
+			this.setChanged();
+			this.notifyObservers(arg + "");
+		}
 	}
 
 	@Override
@@ -26,41 +24,43 @@ public class Var extends Observable implements Observer {
 		return this.location;
 	}
 
-	public Var(double v) {
-		this.value=v;
-		this.location=null;
+	public Var(final double v) {
+		this.value = v;
+		this.location = null;
 	}
-	public Var() {
 
+	public Var() {
 	}
-	public Var(String loc) {
-		super();
-		location = loc;
+
+	public Var(final String loc) {
+		this.location = loc;
 	}
 
 	public double getV() {
-		return value;
+		return this.value;
 	}
 
-	public void setV(double v) {
-		if(this.value!=v) {
+	public void setV(final double v) {
+		if (this.value != v) {
 			this.value = v;
-			setChanged();
-			notifyObservers(v);
+			this.setChanged();
+			this.notifyObservers(v);
 		}
-
-
 	}
+
 	public String getName() {
-		return name;
+		return this.name;
 	}
-	public void setName(String name) {
+
+	public void setName(final String name) {
 		this.name = name;
 	}
+
 	public String getLocation() {
-		return location;
+		return this.location;
 	}
-	public void setLocation(String loc) {
-		location = loc;
+
+	public void setLocation(final String loc) {
+		this.location = loc;
 	}
 }

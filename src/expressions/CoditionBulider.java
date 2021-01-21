@@ -16,7 +16,7 @@ public class CoditionBulider {
         if(i>0||j>0) {
             if((j<i&&j!=-1)||i==-1)
                 i=j;
-            num1 = new Number(ShuntingYardPredicate.calc(deli.substring(0, i)));
+            num1 = new Number(ShuntingYardPredicate.calculate(deli.substring(0, i)));
             num2 = new Number(CoditionBulider.calc(deli.substring(i + 2)));
             switch (deli.charAt(i)) {
                 case '|':
@@ -29,7 +29,7 @@ public class CoditionBulider {
             return exp.calculate();
 
         }
-        return ShuntingYardPredicate.calc(expression);
+        return ShuntingYardPredicate.calculate(expression);
     }
 
     public static double calc(String expression){
@@ -41,7 +41,7 @@ public class CoditionBulider {
             int j = expression.indexOf("|");
             if((j<i&&j!=-1)||i==-1)
                 i=j;
-            token=ShuntingYardPredicate.calc(expression.substring(0, i))+"";
+            token=ShuntingYardPredicate.calculate(expression.substring(0, i))+"";
             queue.addFirst(token);
             token=expression.charAt(i)+"";
             switch (token) {
@@ -62,7 +62,7 @@ public class CoditionBulider {
             }
             expression=expression.substring(i + 2);
         }
-        token=ShuntingYardPredicate.calc(expression)+"";
+        token=ShuntingYardPredicate.calculate(expression)+"";
         queue.addFirst(token);
         while (!stack.isEmpty())
             queue.addFirst(stack.pop());
