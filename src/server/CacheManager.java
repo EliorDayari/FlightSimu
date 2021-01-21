@@ -1,7 +1,7 @@
 package server;
 
 public interface CacheManager<Problem,Solution> {
-	public Boolean Check(Problem in);
-	public Solution Extract(Problem in);
-	public void Save(Problem in,Solution out);
+	public Boolean check(Problem in);
+	public Solution extract(Problem in);
+	public void save(Problem in, Solution out);
 }

@@ -43,7 +43,7 @@ public class FileCacheManager<Problem,Solution> implements CacheManager<Problem,
 	}
 
 	@Override
-	public Boolean Check(Problem in) {
+	public Boolean check(Problem in) {
 		if(disc.isEmpty())
 			return false;
 		return disc.containsKey(in);
@@ -51,12 +51,12 @@ public class FileCacheManager<Problem,Solution> implements CacheManager<Problem,
 	}
 
 	@Override
-	public Solution Extract(Problem in) {
+	public Solution extract(Problem in) {
 		return disc.get(in);
 	}
 
 	@Override
-	public void Save(Problem in,Solution out) {
+	public void save(Problem in, Solution out) {
 		disc.put(in, out);
 		prop.putAll(this.disc);
 		String name="hash2.properties";

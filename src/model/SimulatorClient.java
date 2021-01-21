@@ -1,43 +1,47 @@
 package model;
 
-
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
+import java.io.PrintWriter;
 
-
-public class SimulatorClient {
-    public static volatile boolean stop=false;
+public class SimulatorClient
+{
+    public static volatile boolean stop;
     private static PrintWriter out;
     private static Socket socket;
-    public void Connect(String ip,int port){
+
+    public void Connect(final String ip, final int port) {
         try {
-            socket = new Socket(ip, port);
-            out=new PrintWriter(socket.getOutputStream());
-        } catch (IOException e) {
+            SimulatorClient.socket = new Socket(ip, port);
+            SimulatorClient.out = new PrintWriter(SimulatorClient.socket.getOutputStream());
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("Connected to the Server");
-
     }
 
-    public void Send(String[] data){
-        for (String s: data) {
-            out.println(s);
-            out.flush();
+    public void Send(final String[] data) {
+        for (final String s : data) {
+            SimulatorClient.out.println(s);
+            SimulatorClient.out.flush();
             System.out.println(s);
         }
-
     }
-    public void stop()
-    {
-        if(out!=null ){
-        out.close();
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+    public void stop() {
+        if (SimulatorClient.out != null) {
+            SimulatorClient.out.close();
+            try {
+                SimulatorClient.socket.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    static {
+        SimulatorClient.stop = false;
     }
 }

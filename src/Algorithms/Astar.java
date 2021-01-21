@@ -58,6 +58,6 @@ public class Astar<Solution, heuristic> extends CommonSearcher<Solution>
 
 	public interface Heuristic
 	{
-		double cost(final State p0, final State p1);
+		double cost(final State source, final State p1);
 	}
 }

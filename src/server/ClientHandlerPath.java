@@ -1,36 +1,25 @@
 package server;
 
-import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.InputStream;
 
-public class ClientHandlerPath implements ClientHandler {
+public class ClientHandlerPath implements ClientHandler
+{
     MyClientHandler ch;
-    public static volatile boolean stop=false;
+    public static volatile boolean stop;
 
-    public ClientHandlerPath(MyClientHandler ch) {
+    public ClientHandlerPath(final MyClientHandler ch) {
         this.ch = ch;
     }
 
     @Override
-    public void handleClient(InputStream in, OutputStream out) {
+    public void handleClient(final InputStream in, final OutputStream out) {
+        while (!ClientHandlerPath.stop) {
+            this.ch.handleClient(in, out);
+        }
+    }
 
-            while(!stop)
-            {
-
-                ch.handleClient(in,out);
-                /*
-                synchronized (ViewModel.lock)
-                {
-                    try {
-                        ViewModel.lock.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                 */
-            }
-
-
+    static {
+        ClientHandlerPath.stop = false;
     }
 }

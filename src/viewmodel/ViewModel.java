@@ -1,14 +1,19 @@
 package viewmodel;
 
-import javafx.beans.property.*;
-import model.Model;
-
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Scanner;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import model.Model;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.DoubleProperty;
+import java.util.Observer;
+import java.util.Observable;
 
-public class ViewModel extends Observable implements Observer {
+public class ViewModel extends Observable implements Observer
+{
     public DoubleProperty throttle;
     public DoubleProperty rudder;
     public DoubleProperty aileron;
@@ -22,121 +27,106 @@ public class ViewModel extends Observable implements Observer {
     public DoubleProperty offset;
     public StringProperty script;
     public DoubleProperty heading;
-    public DoubleProperty markSceneX, markSceneY;
+    public DoubleProperty markSceneX;
+    public DoubleProperty markSceneY;
     public BooleanProperty path;
-    private int data[][];
+    private int[][] data;
     private Model model;
 
-
-    public void setData(int[][] data)
-    {
+    public void setData(final int[][] data) {
         this.data = data;
-        model.GetPlane(startX.getValue(),startY.doubleValue(),offset.getValue());
+        this.model.GetPlane(this.startX.getValue(), this.startY.doubleValue(), this.offset.getValue());
     }
 
     public ViewModel() {
-        throttle=new SimpleDoubleProperty();
-        rudder=new SimpleDoubleProperty();
-        aileron=new SimpleDoubleProperty();
-        elevator=new SimpleDoubleProperty();
-        ip=new SimpleStringProperty();
-        port=new SimpleStringProperty();
-        airplaneX=new SimpleDoubleProperty();
-        airplaneY=new SimpleDoubleProperty();
-        startX=new SimpleDoubleProperty();
-        startY=new SimpleDoubleProperty();
-        offset=new SimpleDoubleProperty();
-        script=new SimpleStringProperty();
-        heading=new SimpleDoubleProperty();
-        markSceneX=new SimpleDoubleProperty();
-        markSceneY=new SimpleDoubleProperty();
-        path=new SimpleBooleanProperty();
-
+        this.throttle = (DoubleProperty)new SimpleDoubleProperty();
+        this.rudder = (DoubleProperty)new SimpleDoubleProperty();
+        this.aileron = (DoubleProperty)new SimpleDoubleProperty();
+        this.elevator = (DoubleProperty)new SimpleDoubleProperty();
+        this.ip = (StringProperty)new SimpleStringProperty();
+        this.port = (StringProperty)new SimpleStringProperty();
+        this.airplaneX = (DoubleProperty)new SimpleDoubleProperty();
+        this.airplaneY = (DoubleProperty)new SimpleDoubleProperty();
+        this.startX = (DoubleProperty)new SimpleDoubleProperty();
+        this.startY = (DoubleProperty)new SimpleDoubleProperty();
+        this.offset = (DoubleProperty)new SimpleDoubleProperty();
+        this.script = (StringProperty)new SimpleStringProperty();
+        this.heading = (DoubleProperty)new SimpleDoubleProperty();
+        this.markSceneX = (DoubleProperty)new SimpleDoubleProperty();
+        this.markSceneY = (DoubleProperty)new SimpleDoubleProperty();
+        this.path = (BooleanProperty)new SimpleBooleanProperty();
     }
 
-
-    public void setModel(Model model){
-        this.model=model;
-
-    }
-    //Bind to the simulator values
-    public void setThrottle(){
-        String[] data={"set /controls/engines/current-engine/throttle "+throttle.getValue()};
-        model.send(data);
+    public void setModel(final Model model) {
+        this.model = model;
     }
 
-    public void setRudder(){
-        String[] data={"set /controls/flight/rudder "+rudder.getValue()};
-        model.send(data);
+    public void setThrottle() {
+        final String[] data = { "set /controls/engines/current-engine/throttle " + this.throttle.getValue() };
+        this.model.send(data);
     }
 
-    public void setJoystick(){
-        String[] data = {
-                "set /controls/flight/aileron " + aileron.getValue(),
-                "set /controls/flight/elevator " + elevator.getValue(),
-        };
-        model.send(data);
+    public void setRudder() {
+        final String[] data = { "set /controls/flight/rudder " + this.rudder.getValue() };
+        this.model.send(data);
     }
 
-    public void connect(){
-        model.connectManual(ip.getValue(),Integer.parseInt(port.getValue()));
+    public void setJoystick() {
+        final String[] data = { "set /controls/flight/aileron " + this.aileron.getValue(), "set /controls/flight/elevator " + this.elevator.getValue() };
+        this.model.send(data);
     }
 
-    public void parse(){
-        Scanner scanner=new Scanner(script.getValue());
-        ArrayList<String> list=new ArrayList<>();
-        while(scanner.hasNextLine())
-        {
+    public void connect() {
+        this.model.connectManual(this.ip.getValue(), Integer.parseInt(this.port.getValue()));
+    }
+
+    public void parse() {
+        final Scanner scanner = new Scanner(this.script.getValue());
+        final ArrayList<String> list = new ArrayList<String>();
+        while (scanner.hasNextLine()) {
             list.add(scanner.nextLine());
         }
-        String[] tmp=new String[list.size()];
-        for(int i=0;i<list.size();i++)
-        {
-            tmp[i]=list.get(i);
+        final String[] tmp = new String[list.size()];
+        for (int i = 0; i < list.size(); ++i) {
+            tmp[i] = list.get(i);
         }
-        model.parse(tmp);
+        this.model.parse(tmp);
     }
 
-    public void execute(){
-        model.execute();
+    public void execute() {
+        this.model.execute();
     }
 
-    public void stopAutoPilot(){
-        model.stopAutoPilot();
+    public void stopAutoPilot() {
+        this.model.stopAutoPilot();
     }
 
-    public void findPath(double h,double w) {
-
-
-        if (!path.getValue())
-        {
-            model.connectPath(ip.getValue(), Integer.parseInt(port.getValue()));
+    public void findPath(final double h, final double w) {
+        if (!this.path.getValue()) {
+            this.model.connectPath(this.ip.getValue(), Integer.parseInt(this.port.getValue()));
         }
-        model.findPath((int) (airplaneY.getValue()/-1), (int) (airplaneX.getValue() +15),Math.abs( (int) (markSceneY.getValue() / h)) ,
-               Math.abs((int) (markSceneX.getValue() / w)), data );
+        this.model.findPath((int)(this.airplaneY.getValue() / -1.0), (int)(this.airplaneX.getValue() + 15.0), Math.abs((int)(this.markSceneY.getValue() / h)), Math.abs((int)(this.markSceneX.getValue() / w)), this.data);
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        if(o==model)
-        {
-            String[] tmp=(String[])arg;
-            if(tmp[0].equals("plane")) {
+    public void update(final Observable o, final Object arg) {
+        if (o == this.model) {
+            final String[] tmp = (String[])arg;
+            if (tmp[0].equals("plane")) {
                 double x = Double.parseDouble(tmp[1]);
                 double y = Double.parseDouble(tmp[2]);
-                x = (x - startX.getValue() + offset.getValue());
-                x /= offset.getValue();
-                y = (y - startY.getValue() + offset.getValue()) / offset.getValue();
-                airplaneX.setValue(x);
-                airplaneY.setValue(y);
-                heading.setValue(Double.parseDouble(tmp[3]));
-                setChanged();
-                notifyObservers();
+                x = x - this.startX.getValue() + this.offset.getValue();
+                x /= this.offset.getValue();
+                y = (y - this.startY.getValue() + this.offset.getValue()) / this.offset.getValue();
+                this.airplaneX.setValue((Number)x);
+                this.airplaneY.setValue((Number)y);
+                this.heading.setValue((Number)Double.parseDouble(tmp[3]));
+                this.setChanged();
+                this.notifyObservers();
             }
-            else if(tmp[0].equals("path"))
-            {
-                setChanged();
-                notifyObservers(tmp);
+            else if (tmp[0].equals("path")) {
+                this.setChanged();
+                this.notifyObservers(tmp);
             }
         }
     }

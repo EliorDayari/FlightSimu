@@ -32,15 +32,15 @@ public class MyTestClientHandler<Problem,Solution> implements ClientHandler {
 			while(!(Line=(Problem) Bin.readLine()).equals("end"))
 			{
 				
-				if(cm.Check(Line))
+				if(cm.check(Line))
 				{
-					Solved=(Solution)cm.Extract(Line);
+					Solved=(Solution)cm.extract(Line);
 				}
 				else {
 				//solver=String->new StringBuilder().reverse().toString();
 				
 				Solved=(Solution) solver.Solve(Line);
-				cm.Save(Line, Solved);
+				cm.save(Line, Solved);
 				}
 				Bout.println(Solved);
 				Bout.flush();

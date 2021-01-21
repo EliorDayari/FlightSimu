@@ -1,24 +1,25 @@
 package view;
 
-import commands.DisconnectCommand;
 import interpreter.AutoPilotParser;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import commands.DisconnectCommand;
+import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
+import java.util.Observer;
 import model.Model;
 import viewmodel.ViewModel;
+import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import javafx.application.Application;
 
-public class MainWindowController extends Application {
-
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Flight.fxml"));
-        Parent root = loader.load();
-        FlightController ctrl = loader.getController();
-        ViewModel viewModel=new ViewModel();
-        Model model=new Model();
+public class MainWindowController extends Application
+{
+    public void start(final Stage primaryStage) throws Exception {
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("Flight.fxml"));
+        final Parent root = (Parent)loader.load();
+        final FlightController ctrl = (FlightController)loader.getController();
+        final ViewModel viewModel = new ViewModel();
+        final Model model = new Model();
         model.addObserver(viewModel);
         viewModel.setModel(model);
         viewModel.addObserver(ctrl);
@@ -27,18 +28,16 @@ public class MainWindowController extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.setOnCloseRequest(event -> {
-            DisconnectCommand command=new DisconnectCommand();
-            String[] disconnect={""};
+            final DisconnectCommand command = new DisconnectCommand();
+            final String[] disconnect = { "" };
             command.execute(disconnect);
             AutoPilotParser.thread1.interrupt();
             model.stopAll();
-            System.out.println("bye");
+            System.out.println("Disconnected from server");
         });
-
     }
 
-
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch(args);
     }
 }

@@ -63,9 +63,9 @@ public class MyClientHandler implements ClientHandler {
 			solver=new SolverSearcher<>(searcher);
 			m.setIntialState(Line= Bin.readLine());
 			m.setGoalState(Line= Bin.readLine());
-			if(cm.Check(m.toString()))
+			if(cm.check(m.toString()))
 			{
-				Solved=(String) cm.Extract(m.toString());
+				Solved=(String) cm.extract(m.toString());
 			}
 			else {
 				Solved=(String) solver.Solve(m);
@@ -90,7 +90,7 @@ public class MyClientHandler implements ClientHandler {
 							Solved+="Left"+",";
 				
 						}
-				cm.Save(m.toString(), Solved);
+				cm.save(m.toString(), Solved);
 			}
 			Bout.println(Solved.substring(0, Solved.length()-1));
 			Bout.flush();
