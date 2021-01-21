@@ -447,7 +447,7 @@ public class FlightController implements Initializable, Observer {
             plane[5]=new Image(new FileInputStream("./resources/plane225.png"));
             plane[6]=new Image(new FileInputStream("./resources/plane270.png"));
             plane[7]=new Image(new FileInputStream("./resources/plane315.png"));
-            mark=new Image(new FileInputStream("./resources/mark.png"));
+            mark=new Image(new FileInputStream("./resources/Target.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
