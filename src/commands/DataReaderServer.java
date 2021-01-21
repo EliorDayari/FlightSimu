@@ -36,8 +36,8 @@ public class DataReaderServer implements Command {
 						String[] vars = Line.split(",");
 						for (int i=0;i<vars.length;i++)
 						{
-							if(Double.parseDouble(vars[i])!= MyParser.symbolTable.get(MyParser.vars.get(i)).getV())
-								MyParser.symbolTable.get(MyParser.vars.get(i)).setV(Double.parseDouble(vars[i]));
+							if(Double.parseDouble(vars[i])!= MyParser.symTable.get(MyParser.vars.get(i)).getV())
+								MyParser.symTable.get(MyParser.vars.get(i)).setV(Double.parseDouble(vars[i]));
 
 						}
 

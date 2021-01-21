@@ -7,8 +7,8 @@ public class PrintCommand implements Command {
     public void execute(String[] array) {
        for (int i=1;i<array.length;i++)
        {
-           if(MyParser.symbolTable.containsKey(array[i]))
-                System.out.print(array[i]+" "+ MyParser.symbolTable.get(array[i]).getV());
+           if(MyParser.symTable.containsKey(array[i]))
+                System.out.print(array[i]+" "+ MyParser.symTable.get(array[i]).getV());
            else
                System.out.print(array[i]);
        }

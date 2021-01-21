@@ -11,7 +11,7 @@ import commands.*;
 public class MyParser implements Parser {
     private HashMap<String, CommandExpression> commandTable=new HashMap<>();
     private GenericFactory commandFactory=new GenericFactory();
-    public static HashMap<String, CustomVar> symbolTable;
+    public static HashMap<String, CustomVar> symTable;
     public ArrayList<String[]> lines;
     public ArrayList<CommandExpression> comds;
     public static double returnValue;
@@ -21,7 +21,7 @@ public class MyParser implements Parser {
 
         this.comds=new ArrayList<>();
         this.lines = lines;
-        symbolTable=new HashMap<>();
+        symTable =new HashMap<>();
         commandFactory.insertProduct("openDataServer", DataReaderServer.class);
         commandFactory.insertProduct("connect",ConnectCommand.class);
         commandFactory.insertProduct("while",LoopCommand.class);
@@ -32,7 +32,7 @@ public class MyParser implements Parser {
         commandFactory.insertProduct("print",PrintCommand.class);
         commandFactory.insertProduct("sleep",SleepCommand.class);
         commandFactory.insertProduct("predicate",PredicateCommand.class);
-        commandFactory.insertProduct("autoroute",AutoRouteCommand.class);
+        commandFactory.insertProduct("autoroute", AutoPathCommand.class);
         commandFactory.insertProduct("if",IfCommand.class);
         commandTable.put("openDataServer", new CommandExpression(new DataReaderServer()));
         commandTable.put("connect",new CommandExpression(new ConnectCommand()));
@@ -54,7 +54,7 @@ public class MyParser implements Parser {
         }
         for (String str:vars)
         {
-            symbolTable.put(str,new CustomVar(str));
+            symTable.put(str,new CustomVar(str));
         }
 
     }

@@ -6,32 +6,32 @@ import expressions.Expression;
 
 public class CommandExpression implements Expression
 {
-    private Command c;
-    private String[] s;
+    private Command command;
+    private String[] tokens;
 
-    public CommandExpression(final Command c) {
-        this.c = c;
+    public CommandExpression(final Command command) {
+        this.command = command;
     }
 
     public Command getCommand() {
-        return this.c;
+        return this.command;
     }
 
-    public void setCommand(final Command c) {
-        this.c = c;
+    public void setCommand(final Command command) {
+        this.command = command;
     }
 
     public String[] getTokens() {
-        return this.s;
+        return this.tokens;
     }
 
-    public void setTokens(final String[] s) {
-        this.s = s;
+    public void setTokens(final String[] tokens) {
+        this.tokens = tokens;
     }
 
     @Override
     public double calculate() {
-        this.c.execute(this.s);
+        this.command.execute(this.tokens);
         return 0.0;
     }
 }

@@ -5,18 +5,18 @@ import java.util.PriorityQueue;
 
 public abstract class CommonSearcher<Solution> implements Searcher<Solution>
 {
-	protected PriorityQueue<State> openList;
-	protected int evluateNodes;
+	protected PriorityQueue<State> openPriorityQueue;
+	protected int finishedNodes;
 
 	public CommonSearcher() {
 		final Comparator<State> comp = new StateComparator();
-		this.openList = new PriorityQueue<State>(comp);
-		this.evluateNodes = 0;
+		this.openPriorityQueue = new PriorityQueue<State>(comp);
+		this.finishedNodes = 0;
 	}
 
 	protected State popOpenList() {
-		++this.evluateNodes;
-		return this.openList.poll();
+		++this.finishedNodes;
+		return this.openPriorityQueue.poll();
 	}
 
 	protected Solution backTrace(final State goalState, final State initialState) {

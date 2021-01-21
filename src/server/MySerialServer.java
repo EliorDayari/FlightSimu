@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 public class MySerialServer implements Server
 {
 	private int port;
-	private ClientHandler c;
+	private ClientHandler clientHandler;
 	private volatile boolean stop;
 
 	public MySerialServer() {
@@ -16,9 +16,9 @@ public class MySerialServer implements Server
 	}
 
 	@Override
-	public void open(final int port, final ClientHandler c) {
+	public void open(final int port, final ClientHandler clientHandler) {
 		this.port = port;
-		this.c = c;
+		this.clientHandler = clientHandler;
 		new Thread(() -> {
 			try {
 				this.runServer();
@@ -37,25 +37,30 @@ public class MySerialServer implements Server
 	private void runServer() throws Exception {
 		final ServerSocket server = new ServerSocket(this.port);
 		System.out.println("Server is open. waiting for clients...");
-		server.setSoTimeout(300000000);
+		server.setSoTimeout(164000000);
 		while (!this.stop) {
 			try {
 				final Socket aClient = server.accept();
 				System.out.println("Client connected to the server");
 				try {
-					this.c.handleClient(aClient.getInputStream(), aClient.getOutputStream());
+					this.clientHandler.handleClient(aClient.getInputStream(), aClient.getOutputStream());
 					aClient.close();
 				}
 				catch (IOException e) {
-					System.out.println("invalid input2-output");
 					e.printStackTrace();
 				}
 			}
 			catch (SocketTimeoutException e2) {
-				System.out.println("Time Out");
 				e2.printStackTrace();
 			}
 		}
 		server.close();
+	}
+
+	public static void main(String[] args) {
+		Server s=new MySerialServer(); // initialize
+		CacheManager cm=new FileCacheManager();
+		MyClientHandler ch=new MyClientHandler(cm);
+		s.open(7777,new ClientHandlerPath(ch));
 	}
 }

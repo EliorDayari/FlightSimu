@@ -34,7 +34,7 @@ public class AdapterParser
     public void add(final ArrayList<String[]> lines) {
         this.p.lines.clear();
         this.p.lines.addAll(lines);
-        MyParser.symbolTable.put("stop", new CustomVar(1.0));
+        MyParser.symTable.put("stop", new CustomVar(1.0));
         for (final String[] s : this.p.lines) {
             if (s[0].equals("while")) {
                 final StringBuilder tmp = new StringBuilder(s[s.length - 2]);
@@ -45,7 +45,7 @@ public class AdapterParser
     }
 
     public void stop() {
-        final CustomVar v = MyParser.symbolTable.get("stop");
+        final CustomVar v = MyParser.symTable.get("stop");
         if (v != null) {
             v.setV(0.0);
         }
@@ -53,7 +53,7 @@ public class AdapterParser
     }
 
     public void Continue() {
-        MyParser.symbolTable.get("stop").setV(1.0);
+        MyParser.symTable.get("stop").setV(1.0);
     }
 
     static {

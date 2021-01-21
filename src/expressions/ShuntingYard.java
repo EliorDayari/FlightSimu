@@ -22,7 +22,7 @@ public class ShuntingYard
 			}
 			else if ((expression.charAt(i) >= 'A' && expression.charAt(i) <= 'Z') || (expression.charAt(i) >= 'a' && expression.charAt(i) <= 'z')) {
 				for (token = expression.charAt(i) + ""; i < expression.length() - 1 && ((expression.charAt(i + 1) >= 'A' && expression.charAt(i + 1) <= 'Z') || (expression.charAt(i + 1) >= 'a' && expression.charAt(i + 1) <= 'z')); token += expression.charAt(++i)) {}
-				token = MyParser.symbolTable.get(token).getV() + "";
+				token = MyParser.symTable.get(token).getV() + "";
 			}
 			else {
 				token = expression.charAt(i) + "";
