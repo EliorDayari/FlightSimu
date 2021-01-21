@@ -3,20 +3,18 @@
 package commands;
 
 import expressions.ShuntingYard;
-import java.util.Observer;
-import interpreter.CompParser;
-import interpreter.Var;
+import interpreter.MyParser;
 
 public class AssignCommand implements Command
 {
     @Override
     public void execute(final String[] array) {
         if (array[2].equals("bind")) {
-            if (CompParser.symbolTable.get(array[0]).getV() != CompParser.symbolTable.get(array[3]).getV()) {
-                CompParser.symbolTable.get(array[0]).setV(CompParser.symbolTable.get(array[3]).getV());
+            if (MyParser.symbolTable.get(array[0]).getV() != MyParser.symbolTable.get(array[3]).getV()) {
+                MyParser.symbolTable.get(array[0]).setV(MyParser.symbolTable.get(array[3]).getV());
             }
-            CompParser.symbolTable.get(array[3]).addObserver(CompParser.symbolTable.get(array[0]));
-            CompParser.symbolTable.get(array[0]).addObserver(CompParser.symbolTable.get(array[3]));
+            MyParser.symbolTable.get(array[3]).addObserver(MyParser.symbolTable.get(array[0]));
+            MyParser.symbolTable.get(array[0]).addObserver(MyParser.symbolTable.get(array[3]));
         }
         else {
             final StringBuilder exp = new StringBuilder();
@@ -24,13 +22,13 @@ public class AssignCommand implements Command
                 exp.append(array[i]);
             }
             final double tmp = ShuntingYard.calc(exp.toString());
-            if (CompParser.symbolTable.get(array[0]).getLocation() != null) {
-                ConnectCommand.out.println("set " + CompParser.symbolTable.get(array[0]).getLocation() + " " + tmp);
+            if (MyParser.symbolTable.get(array[0]).getLocation() != null) {
+                ConnectCommand.out.println("set " + MyParser.symbolTable.get(array[0]).getLocation() + " " + tmp);
                 ConnectCommand.out.flush();
-                System.out.println("set " + CompParser.symbolTable.get(array[0]).getLocation() + " " + tmp);
+                System.out.println("set " + MyParser.symbolTable.get(array[0]).getLocation() + " " + tmp);
             }
             else {
-                CompParser.symbolTable.get(array[0]).setV(tmp);
+                MyParser.symbolTable.get(array[0]).setV(tmp);
             }
         }
     }

@@ -1,8 +1,9 @@
 package server;
 
-import Algorithms.Astar;
-import Algorithms.Searcher;
-import Algorithms.State;
+import algorithms.Astar;
+import algorithms.Searcher;
+import algorithms.State;
+import matrix.Matrix;
 
 import java.io.BufferedReader;
 import java.io.IOException;

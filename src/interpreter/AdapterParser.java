@@ -1,19 +1,16 @@
 package interpreter;
 
-import java.util.Iterator;
-import java.util.Collection;
 import java.util.ArrayList;
-import commands.CommandExpression;
 
-public class AutoPilotParser
+public class AdapterParser
 {
-    CompParser p;
+    MyParser p;
     public static volatile boolean stop;
     public static volatile boolean close;
     public static Thread thread1;
     public int i;
 
-    public AutoPilotParser(final CompParser p) {
+    public AdapterParser(final MyParser p) {
         this.i = 0;
         this.p = p;
     }
@@ -24,9 +21,9 @@ public class AutoPilotParser
     }
 
     public void execute() {
-        (AutoPilotParser.thread1 = new Thread(() -> {
-            while (!AutoPilotParser.close) {
-                while (!AutoPilotParser.stop && this.i < this.p.comds.size()) {
+        (AdapterParser.thread1 = new Thread(() -> {
+            while (!AdapterParser.close) {
+                while (!AdapterParser.stop && this.i < this.p.comds.size()) {
                     this.p.comds.get(this.i).calculate();
                     ++this.i;
                 }
@@ -37,7 +34,7 @@ public class AutoPilotParser
     public void add(final ArrayList<String[]> lines) {
         this.p.lines.clear();
         this.p.lines.addAll(lines);
-        CompParser.symbolTable.put("stop", new Var(1.0));
+        MyParser.symbolTable.put("stop", new CustomVar(1.0));
         for (final String[] s : this.p.lines) {
             if (s[0].equals("while")) {
                 final StringBuilder tmp = new StringBuilder(s[s.length - 2]);
@@ -48,19 +45,19 @@ public class AutoPilotParser
     }
 
     public void stop() {
-        final Var v = CompParser.symbolTable.get("stop");
+        final CustomVar v = MyParser.symbolTable.get("stop");
         if (v != null) {
             v.setV(0.0);
         }
-        AutoPilotParser.stop = true;
+        AdapterParser.stop = true;
     }
 
     public void Continue() {
-        CompParser.symbolTable.get("stop").setV(1.0);
+        MyParser.symbolTable.get("stop").setV(1.0);
     }
 
     static {
-        AutoPilotParser.stop = true;
-        AutoPilotParser.close = false;
+        AdapterParser.stop = true;
+        AdapterParser.close = false;
     }
 }

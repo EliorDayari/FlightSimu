@@ -8,16 +8,16 @@ import java.util.Stack;
 
 import commands.*;
 
-public class CompParser implements Parser {
+public class MyParser implements Parser {
     private HashMap<String, CommandExpression> commandTable=new HashMap<>();
     private GenericFactory commandFactory=new GenericFactory();
-    public static HashMap<String,Var> symbolTable;
+    public static HashMap<String, CustomVar> symbolTable;
     public ArrayList<String[]> lines;
     public ArrayList<CommandExpression> comds;
     public static double returnValue;
     public static ArrayList<String> vars;
 
-    public CompParser(ArrayList<String[]> lines) {
+    public MyParser(ArrayList<String[]> lines) {
 
         this.comds=new ArrayList<>();
         this.lines = lines;
@@ -54,7 +54,7 @@ public class CompParser implements Parser {
         }
         for (String str:vars)
         {
-            symbolTable.put(str,new Var(str));
+            symbolTable.put(str,new CustomVar(str));
         }
 
     }

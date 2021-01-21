@@ -1,10 +1,7 @@
-package server;
+package algorithms;
 
 import java.util.Comparator;
-import Algorithms.StateComparator;
-import Algorithms.State;
 import java.util.PriorityQueue;
-import Algorithms.Searcher;
 
 public abstract class CommonSearcher<Solution> implements Searcher<Solution>
 {

@@ -1,4 +1,4 @@
-package Algorithms;
+package algorithms;
 
 public interface Searcher<Solution> {
 	public Solution search(Searchable s);

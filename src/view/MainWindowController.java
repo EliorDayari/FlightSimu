@@ -1,10 +1,8 @@
 package view;
 
-import interpreter.AutoPilotParser;
+import interpreter.AdapterParser;
 import commands.DisconnectCommand;
-import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
-import java.util.Observer;
 import model.Model;
 import viewmodel.ViewModel;
 import javafx.scene.Parent;
@@ -31,7 +29,7 @@ public class MainWindowController extends Application
             final DisconnectCommand command = new DisconnectCommand();
             final String[] disconnect = { "" };
             command.execute(disconnect);
-            AutoPilotParser.thread1.interrupt();
+            AdapterParser.thread1.interrupt();
             model.stopAll();
             System.out.println("Disconnected from server");
         });

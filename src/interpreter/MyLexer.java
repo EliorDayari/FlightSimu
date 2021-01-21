@@ -8,13 +8,13 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CompLexer<V> implements Lexer
+public class MyLexer<V> implements Lexer
 {
     private Scanner scanner;
     private ArrayList<String[]> lines;
     private String[] tokens;
 
-    public CompLexer(final String v) {
+    public MyLexer(final String v) {
         this.lines = new ArrayList<String[]>();
         this.tokens = null;
         try {
@@ -25,13 +25,13 @@ public class CompLexer<V> implements Lexer
         }
     }
 
-    public CompLexer(final String[] s) {
+    public MyLexer(final String[] s) {
         this.lines = new ArrayList<String[]>();
         this.tokens = null;
         this.tokens = s;
     }
 
-    public CompLexer(final V v) {
+    public MyLexer(final V v) {
         this.lines = new ArrayList<String[]>();
         this.tokens = null;
         this.scanner = new Scanner((Readable)v);

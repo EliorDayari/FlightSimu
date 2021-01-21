@@ -1,14 +1,18 @@
 
 
-package Algorithms;
+package algorithms;
 
-import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.HashSet;
-import server.CommonSearcher;
 
-public class BFS<Solution> extends CommonSearcher<Solution>
+public class Astar<Solution, heuristic> extends CommonSearcher<Solution>
 {
+	Heuristic h;
+
+	public Astar(final Heuristic h) {
+		this.h = h;
+	}
+
 	@Override
 	public Solution search(final Searchable s) {
 		this.openList.add(s.getInitialState());
@@ -17,10 +21,12 @@ public class BFS<Solution> extends CommonSearcher<Solution>
 			final State n = this.popOpenList();
 			closedSet.add(n);
 			final ArrayList<State> successors = s.getAllPossibleStates(n);
+			n.setCost(n.getCost() + this.h.cost(n, s.getGoalState()));
 			if (n.equals(s.getGoalState())) {
 				return this.backTrace(n, s.getInitialState());
 			}
 			for (final State state : successors) {
+				state.setCost(state.getCost() + this.h.cost(state, s.getGoalState()));
 				if (!closedSet.contains(state) && !this.openList.contains(state)) {
 					state.setCameFrom(n);
 					this.openList.add(state);
@@ -46,5 +52,11 @@ public class BFS<Solution> extends CommonSearcher<Solution>
 	@Override
 	public int getNumberOfNodesEvaluated() {
 		return this.evluateNodes;
+	}
+
+	public interface Heuristic
+	{
+		double cost(final State source, final State p1);
+
 	}
 }

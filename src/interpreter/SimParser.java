@@ -6,12 +6,12 @@ import java.util.HashMap;
 import commands.*;
 
 
-public class SimulatorParser implements Parser{
+public class SimParser implements Parser{
 	private HashMap<String, Command> commandTable=new HashMap<>();
-	public static HashMap<String,Var> symbolTable=new HashMap<>();
+	public static HashMap<String, CustomVar> symbolTable=new HashMap<>();
 	private ArrayList<String[]> lines;
 	
-	public SimulatorParser(ArrayList<String[]> lines) {
+	public SimParser(ArrayList<String[]> lines) {
 		this.lines = lines;
 		commandTable.put("openDataServer", new DataReaderServer());
 		commandTable.put("connect", new ConnectCommand());

@@ -1,7 +1,7 @@
-package server;
+package matrix;
 
 
-import Algorithms.State;
+import algorithms.State;
 
 public class MatrixState extends State<String> {
 

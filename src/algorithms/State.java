@@ -1,5 +1,5 @@
 
-package Algorithms;
+package algorithms;
 
 public class State<T>
 {

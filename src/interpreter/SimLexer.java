@@ -4,17 +4,17 @@ package interpreter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class SimulatorLexer<V> implements Lexer
+public class SimLexer<V> implements Lexer
 {
 	private Scanner scanner;
 	private ArrayList<String[]> lines;
 
-	public SimulatorLexer(final String v) {
+	public SimLexer(final String v) {
 		this.lines = new ArrayList<String[]>();
 		this.scanner = new Scanner(v);
 	}
 
-	public SimulatorLexer(final V v) {
+	public SimLexer(final V v) {
 		this.lines = new ArrayList<String[]>();
 		this.scanner = new Scanner((Readable)v);
 	}

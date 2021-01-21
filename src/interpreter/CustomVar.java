@@ -3,7 +3,7 @@ package interpreter;
 import java.util.Observer;
 import java.util.Observable;
 
-public class Var extends Observable implements Observer
+public class CustomVar extends Observable implements Observer
 {
 	double value;
 	String name;
@@ -24,15 +24,15 @@ public class Var extends Observable implements Observer
 		return this.location;
 	}
 
-	public Var(final double v) {
+	public CustomVar(final double v) {
 		this.value = v;
 		this.location = null;
 	}
 
-	public Var() {
+	public CustomVar() {
 	}
 
-	public Var(final String loc) {
+	public CustomVar(final String loc) {
 		this.location = loc;
 	}
 

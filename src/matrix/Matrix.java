@@ -1,8 +1,8 @@
-package server;
+package matrix;
 
 
-import Algorithms.Searchable;
-import Algorithms.State;
+import algorithms.Searchable;
+import algorithms.State;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,7 +1,7 @@
 package server;
 
-import Algorithms.Searchable;
-import Algorithms.Searcher;
+import algorithms.Searchable;
+import algorithms.Searcher;
 
 public class SolverSearcher<Problem,Solution> implements Solver<Problem, Solution> {
 	private Searcher s;

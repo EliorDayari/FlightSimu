@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import expressions.ShuntingYard;
-import interpreter.CompParser;
+import interpreter.MyParser;
 import server.ClientHandler;
 import server.MySerialServer;
 import server.Server;
@@ -36,8 +36,8 @@ public class DataReaderServer implements Command {
 						String[] vars = Line.split(",");
 						for (int i=0;i<vars.length;i++)
 						{
-							if(Double.parseDouble(vars[i])!=CompParser.symbolTable.get(CompParser.vars.get(i)).getV())
-								CompParser.symbolTable.get(CompParser.vars.get(i)).setV(Double.parseDouble(vars[i]));
+							if(Double.parseDouble(vars[i])!= MyParser.symbolTable.get(MyParser.vars.get(i)).getV())
+								MyParser.symbolTable.get(MyParser.vars.get(i)).setV(Double.parseDouble(vars[i]));
 
 						}
 
