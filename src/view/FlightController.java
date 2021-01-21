@@ -51,7 +51,7 @@ public class FlightController implements Initializable, Observer {
     @FXML
     private RadioButton auto;
     @FXML
-    private MapDisplayer map;
+    private MapDisplayerController map;
     @FXML
     private RadioButton manual;
     @FXML
@@ -151,7 +151,7 @@ public class FlightController implements Initializable, Observer {
     public void Connect(){
         Parent root = null;
         try {
-            FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Popup.fxml"));
+            FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("ConnectSimPopup.fxml"));
             root = fxmlLoader.load();
             FlightController fc=fxmlLoader.getController();
             fc.viewModel=this.viewModel;
@@ -173,7 +173,7 @@ public class FlightController implements Initializable, Observer {
         Parent root = null;
 
         try {
-            FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Popup.fxml"));
+            FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("CalcPopup.fxml"));
             root = fxmlLoader.load();
             FlightController fc=fxmlLoader.getController();
             fc.viewModel=this.viewModel;
@@ -447,7 +447,7 @@ public class FlightController implements Initializable, Observer {
             plane[5]=new Image(new FileInputStream("./resources/plane225.png"));
             plane[6]=new Image(new FileInputStream("./resources/plane270.png"));
             plane[7]=new Image(new FileInputStream("./resources/plane315.png"));
-            mark=new Image(new FileInputStream("./resources/mark.png"));
+            mark=new Image(new FileInputStream("./resources/Target.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

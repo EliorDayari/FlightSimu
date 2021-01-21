@@ -1,34 +1,37 @@
+
+
 package commands;
 
 import expressions.Expression;
 
-public class CommandExpression implements Expression {
-    private Command c;
-    private String[] s;
+public class CommandExpression implements Expression
+{
+    private Command command;
+    private String[] tokens;
 
-    public CommandExpression(Command c) {
-        this.c = c;
+    public CommandExpression(final Command command) {
+        this.command = command;
     }
 
-    public Command getC() {
-        return c;
+    public Command getCommand() {
+        return this.command;
     }
 
-    public void setC(Command c) {
-        this.c = c;
+    public void setCommand(final Command command) {
+        this.command = command;
     }
 
-    public String[] getS() {
-        return s;
+    public String[] getTokens() {
+        return this.tokens;
     }
 
-    public void setS(String[] s) {
-        this.s = s;
+    public void setTokens(final String[] tokens) {
+        this.tokens = tokens;
     }
 
     @Override
     public double calculate() {
-        c.executeCommand(s);
-        return 0;
+        this.command.execute(this.tokens);
+        return 0.0;
     }
 }

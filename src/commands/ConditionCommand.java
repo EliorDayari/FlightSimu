@@ -15,7 +15,7 @@ public class ConditionCommand implements Command {
 	}
 
 	@Override
-	public void executeCommand(String[] array) {
+	public void execute(String[] array) {
 		
 	}
 

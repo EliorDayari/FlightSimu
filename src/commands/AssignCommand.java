@@ -1,30 +1,35 @@
+
+
 package commands;
 
 import expressions.ShuntingYard;
-import interpreter.CompParser;
+import interpreter.MyParser;
 
-public class AssignCommand implements Command {
+public class AssignCommand implements Command
+{
     @Override
-    public void executeCommand(String[] array) {
+    public void execute(final String[] array) {
         if (array[2].equals("bind")) {
-            if(CompParser.symbolTable.get(array[0]).getV()!=CompParser.symbolTable.get(array[3]).getV())
-                CompParser.symbolTable.get(array[0]).setV(CompParser.symbolTable.get(array[3]).getV());
-            CompParser.symbolTable.get(array[3]).addObserver(CompParser.symbolTable.get(array[0]));
-            CompParser.symbolTable.get(array[0]).addObserver(CompParser.symbolTable.get(array[3]));
-
+            if (MyParser.symTable.get(array[0]).getV() != MyParser.symTable.get(array[3]).getV()) {
+                MyParser.symTable.get(array[0]).setV(MyParser.symTable.get(array[3]).getV());
+            }
+            MyParser.symTable.get(array[3]).addObserver(MyParser.symTable.get(array[0]));
+            MyParser.symTable.get(array[0]).addObserver(MyParser.symTable.get(array[3]));
         }
         else {
-            StringBuilder exp = new StringBuilder();
-            for (int i = 2; i < array.length; i++)
-                exp.append(array[i]);
-            double tmp=ShuntingYard.calc(exp.toString());
-            if(CompParser.symbolTable.get(array[0]).getLocation()!=null) {
-                ConnectCommand.out.println("set " + CompParser.symbolTable.get(array[0]).getLocation() + " " + tmp);
-                ConnectCommand.out.flush();
-                System.out.println("set " + CompParser.symbolTable.get(array[0]).getLocation() + " " + tmp);
+            final StringBuilder sb = new StringBuilder();
+            for (int i = 2; i < array.length; ++i) {
+                sb.append(array[i]);
             }
-            else
-                CompParser.symbolTable.get(array[0]).setV(tmp);
+            final double tmp = ShuntingYard.calc(sb.toString());
+            if (MyParser.symTable.get(array[0]).getLocation() != null) {
+                ConnectCommand.out.println("set " + MyParser.symTable.get(array[0]).getLocation() + " " + tmp);
+                ConnectCommand.out.flush();
+                System.out.println("set " + MyParser.symTable.get(array[0]).getLocation() + " " + tmp);
+            }
+            else {
+                MyParser.symTable.get(array[0]).setV(tmp);
+            }
         }
     }
 }

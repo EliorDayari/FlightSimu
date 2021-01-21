@@ -14,8 +14,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 
-import interpreter.AutoPilotParser;
-import interpreter.CompParser;
+import interpreter.AdapterParser;
+import interpreter.MyParser;
 
 public class Model extends Observable implements Observer {
     private SimulatorClient simulatorClient;
@@ -216,12 +216,12 @@ public class Model extends Observable implements Observer {
             else if(tmp<-340)
                 tmp=-360-tmp;
             if(Math.abs(heading-headingC)>9 && Math.abs(heading-headingC)<349) {
-                CompParser.symbolTable.get("r").setV(tmp/20);
-                CompParser.symbolTable.get("e").setV(0.095);
+                MyParser.symTable.get("r").setV(tmp/20);
+                MyParser.symTable.get("e").setV(0.095);
             }
             else {
-                CompParser.symbolTable.get("r").setV(tmp / 100);
-                CompParser.symbolTable.get("e").setV(0.053);
+                MyParser.symTable.get("r").setV(tmp / 100);
+                MyParser.symTable.get("e").setV(0.053);
             }
             try {
                 Thread.sleep(250);
@@ -308,7 +308,7 @@ public class Model extends Observable implements Observer {
             pathY=currentlocationY;
 
         }
-        CompParser.symbolTable.get("goal").setV(1);
+        MyParser.symTable.get("goal").setV(1);
 
     }
     private void buildFlyPlan(String[] solution)
@@ -434,7 +434,7 @@ public class Model extends Observable implements Observer {
         while(minus>30 && minus < 335 &&!Model.turn)
         {
             double tmp=t.Do(h);
-            CompParser.symbolTable.get("hroute").setV(tmp);
+            MyParser.symTable.get("hroute").setV(tmp);
             try {
                 Thread.sleep(2500);
             } catch (InterruptedException e) {
@@ -443,7 +443,7 @@ public class Model extends Observable implements Observer {
             minus=Math.abs(heading-tmp);
             h=tmp;
         }
-        CompParser.symbolTable.get("hroute").setV(heading);
+        MyParser.symTable.get("hroute").setV(heading);
     }
     public double turnPlus(double currentHeading)
     {
@@ -474,8 +474,8 @@ public class Model extends Observable implements Observer {
             e.printStackTrace();
         }
         simulatorClient.stop();
-        AutoPilotParser.thread1.interrupt();
-        AutoPilotParser.close=true;
+        AdapterParser.thread1.interrupt();
+        AdapterParser.close=true;
         Model.turn=true;
     }
 

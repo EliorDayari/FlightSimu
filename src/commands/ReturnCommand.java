@@ -1,17 +1,17 @@
 package commands;
 
 import expressions.ShuntingYard;
-import interpreter.CompParser;
+import interpreter.MyParser;
 
 public class ReturnCommand implements Command {
 
     @Override
-    public void executeCommand(String[] array) {
+    public void execute(String[] array) {
 
         StringBuilder exp = new StringBuilder();
         for (int i = 1; i < array.length; i++)
             exp.append(array[i]);
-        CompParser.returnValue = ShuntingYard.calc(exp.toString());
+        MyParser.returnValue = ShuntingYard.calc(exp.toString());
     }
 
 }

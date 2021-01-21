@@ -1,14 +1,14 @@
 package commands;
 
-import interpreter.CompParser;
+import interpreter.MyParser;
 
 public class PrintCommand implements Command {
     @Override
-    public void executeCommand(String[] array) {
+    public void execute(String[] array) {
        for (int i=1;i<array.length;i++)
        {
-           if(CompParser.symbolTable.containsKey(array[i]))
-                System.out.print(array[i]+CompParser.symbolTable.get(array[i]).getV());
+           if(MyParser.symTable.containsKey(array[i]))
+                System.out.print(array[i]+" "+ MyParser.symTable.get(array[i]).getV());
            else
                System.out.print(array[i]);
        }

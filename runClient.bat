@@ -1,1 +1,1 @@
- java -jar ""D:\PTMCourse\PTM_Project5\PTM_Project5\Client.jar""
+ java -jar ""runClient.jar""
